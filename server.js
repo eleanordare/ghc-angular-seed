@@ -20,22 +20,28 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/api', api);
 
 // Catch all other routes and return the index file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src/index.html'));
+app.get('/', (req, res) => {
+  // res.sendFile(path.join(__dirname, 'src/index.html'));
+  res.render('src/index.html');
 });
 
 /**
  * Get port from environment and store in Express.
  */
+const ip = process.env.IP || '0.0.0.0';
 const port = process.env.PORT || '8080';
-app.set('port', port);
+// app.set('port', port);
+
+app.listen(port, ip);
+console.log("Server running on http://%s:%s", ip, port);
+module.exports = app;
 
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+// server.listen(port, () => console.log(`API running on localhost:${port}`));
